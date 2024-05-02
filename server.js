@@ -5,6 +5,7 @@ const express = require('express');
 const app = express();
 const socketio = require('socket.io');
 app.use(express.static(__dirname))
+const PORT = process.env.PORT || 3030;
 
 //we need a key and cert to run https
 //we generated them with mkcert
@@ -26,7 +27,7 @@ const io = socketio(expressServer,{
         methods: ["GET", "POST"]
     }
 });
-expressServer.listen(8181);
+expressServer.listen(PORT);
 
 //offers will contain {}
 const offers = [
