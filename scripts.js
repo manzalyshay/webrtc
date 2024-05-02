@@ -3,7 +3,7 @@ const password = "x";
 document.querySelector('#user-name').innerHTML = userName;
 
 //if trying it on a phone, use this instead...
-const socket = io.connect('https://89.139.45.251:8181/',{
+const socket = io.connect('https://manzalyshay.github.io/webrtc/',{
 // const socket = io.connect('https://localhost:8181/',{
     auth: {
         userName,password
