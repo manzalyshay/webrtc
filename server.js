@@ -1,33 +1,11 @@
 
-const fs = require('fs');
-const https = require('https')
-const express = require('express');
-const app = express();
-const socketio = require('socket.io');
+const app = require('express')();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
 app.use(express.static(__dirname))
 const PORT = process.env.PORT || 3030;
 
-//we need a key and cert to run https
-//we generated them with mkcert
-// $ mkcert create-ca
-// $ mkcert create-cert
-const key = fs.readFileSync('cert.key');
-const cert = fs.readFileSync('cert.crt');
-
-//we changed our express setup so we can use https
-//pass the key and cert to createServer on https
-const expressServer = https.createServer({key, cert}, app);
-//create our socket.io server... it will listen to our express port
-const io = socketio(expressServer,{
-    cors: {
-        origin: [
-            "https://localhost",
-            'https://manzalyshay.github.io/webrtc' //if using a phone or another computer
-        ],
-        methods: ["GET", "POST"]
-    }
-});
-expressServer.listen(PORT);
+server.listen(PORT);
 
 //offers will contain {}
 const offers = [
